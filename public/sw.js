@@ -15,8 +15,6 @@ this.addEventListener("install", (event) => {
           "/src/api/fetchWeather.js",
           "/src/hooks/useIsOnline.js",
           "/node_modules/.vite/deps/axios.js",
-          "/bg.webp",
-          "/logo.png",
           "/index.html",
           "/",
         ])
