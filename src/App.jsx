@@ -1,46 +1,47 @@
 import { useState } from "react";
 import fetchWeather from "./api/fetchWeather";
+import useIsOnline from "./hooks/useIsOnline";
 
 function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
-  const [mode, setMode] = useState("online");
+  const isOnline = useIsOnline();
+  const [notFound, setNotFound] = useState(null);
 
   const search = async (e) => {
     e.preventDefault();
     if (query.trim().length !== 0) {
-      // const data = await fetchWeather(query)
-      await fetchWeather(query)
-        .then((resp) => {
-          setWeather(resp);
-          setMode("online");
-          localStorage.setItem("weather", JSON.stringify(resp));
-        })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            localStorage.clear();
-            setMode("offline");
-            setWeather({});
-          } else {
-            setMode("offline");
-            let collection = localStorage.getItem("weather");
-            setWeather(JSON.parse(collection));
-          }
-        });
-      // console.log(weather);
-      // console.log(data);
-      // setWeather(data);
+      try {
+        const resp = await fetchWeather(query);
+        setWeather(resp);
+        localStorage.setItem("weather", JSON.stringify(resp));
+        setNotFound(null);
+      } catch (error) {
+        if (error.message === "City not found") {
+          setNotFound("City not found");
+        }
+        // If fetch fails, check local storage for cached weather data
+        const cachedWeather = localStorage.getItem("weather");
+        if (cachedWeather) {
+          setWeather(JSON.parse(cachedWeather));
+        }
+      }
       setQuery("");
     }
   };
   return (
     <div className="h-screen w-full bg-[url('/bg.webp')] bg-no-repeat bg-cover items-center justify-center flex flex-col">
-      {mode === "offline" && (
+      {!isOnline && (
         <div className="p-3 rounded-lg bg-yellow-200 my-2 absolute left-0 right-0 top-4 mx-4 w-fit justify-center">
-          city is not found or having some issues with the network
+          having some issues with the network
         </div>
       )}
 
+      {notFound && (
+        <div className="p-3 rounded-lg bg-yellow-200 my-2 absolute left-0 right-0 top-4 mx-4 w-fit justify-center">
+          {notFound}
+        </div>
+      )}
       <form
         id="searchform"
         className="w-[70%] md:w-[40%] p-3 rounded-lg flex items-center bg-white gap-2"
@@ -69,10 +70,7 @@ function App() {
           />
         </svg>
       </form>
-      {/* <button className="bg-black p-4 rounded-lg text-white" onClick={search}>
-        search
-      </button> */}
-      {weather.main && (
+      {weather.main && !notFound ? (
         <div className="mt-3 rounded-xl bg-slate-300/70 w-[80%] md:w-[50%] flex flex-col justify-center items-center p-4">
           <h2>
             <span className="text-3xl">{weather.name}</span>
@@ -94,7 +92,7 @@ function App() {
             </p>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
