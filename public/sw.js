@@ -15,9 +15,10 @@ this.addEventListener("install", (event) => {
         "/node_modules/.vite/deps/chunk-LHNGGKKR.js",
         "/node_modules/.vite/deps/chunk-P2LSHJDD.js",
         "/src/api/fetchWeather.js",
+        "/src/hooks/useIsOnline.js",
         "/node_modules/.vite/deps/axios.js",
-        "/bg.jpg",
-        "/logo.jpg",
+        "/bg.webp",
+        "/logo.png",
         "/index.html",
         "/",
       ]);
