@@ -28,7 +28,7 @@ function App() {
     }
   };
   return (
-    <div className="h-screen w-full bg-[url('/bg.jpg')] bg-no-repeat bg-cover items-center justify-center flex flex-col">
+    <div className="h-screen w-full bg-[url('/bg.webp')] bg-no-repeat bg-cover items-center justify-center flex flex-col">
       {mode === "offline" && (
         <div className="p-3 rounded-lg bg-yellow-200 my-2 absolute left-0 right-0 top-4 mx-4 w-fit justify-center">
           city is not found or having some issues with the network
