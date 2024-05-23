@@ -24,7 +24,7 @@ this.addEventListener("install", (event) => {
           "/",
         ])
         .catch((error) => {
-          console.error("Failed to add resources to cache:", error);
+          console.log("Failed to add data to cache:", error);
         });
     })
   );
@@ -48,29 +48,33 @@ this.addEventListener("install", (event) => {
 // });
 
 // Activate event
-self.addEventListener("activate", function (event) {
-  event.waitUntil(self.clients.claim());
-});
+// self.addEventListener("activate", function (event) {
+//   event.waitUntil(self.clients.claim());
+// });
 
 this.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(
-        keyList.map((key) => {
-          if (key !== cachedData) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
+  if (navigator.onLine) {
+    event.waitUntil(
+      caches.keys().then((keyList) => {
+        return Promise.all(
+          keyList.map((key) => {
+            if (key !== cachedData) {
+              return caches.delete(key);
+            }
+          })
+        );
+      })
+    );
+  }
 });
 
 // Fetch event
 this.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+  if (!navigator.onLine) {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request);
+      })
+    );
+  }
 });
