@@ -16,10 +16,16 @@ function App() {
           setMode("online");
           localStorage.setItem("weather", JSON.stringify(resp));
         })
-        .catch(() => {
-          setMode("offline");
-          let collection = localStorage.getItem("weather");
-          setWeather(JSON.parse(collection));
+        .catch((err) => {
+          if (err.response.status === 404) {
+            localStorage.clear();
+            setMode("offline");
+            setWeather({});
+          } else {
+            setMode("offline");
+            let collection = localStorage.getItem("weather");
+            setWeather(JSON.parse(collection));
+          }
         });
       // console.log(weather);
       // console.log(data);
