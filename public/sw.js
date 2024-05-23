@@ -4,10 +4,7 @@ this.addEventListener("install", (event) => {
     caches.open(cachedData).then((cache) => {
       cache
         .addAll([
-          "/@vite/client",
           "/src/main.jsx",
-          "/@react-refresh",
-          "/node_modules/.vite/deps/react_jsx-dev-runtime.js",
           "/node_modules/.vite/deps/react.js",
           "/node_modules/.vite/deps/react-dom_client.js",
           "/src/App.jsx",
