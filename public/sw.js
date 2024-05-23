@@ -65,9 +65,11 @@ this.addEventListener("install", (event) => {
 
 // Fetch event
 this.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request.clone());
-    })
-  );
+  if (!navigator.onLine) {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return response || fetch(event.request.clone());
+      })
+    );
+  }
 });
