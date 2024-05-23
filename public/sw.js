@@ -9,7 +9,7 @@ this.addEventListener("install", (event) => {
           // "/node_modules/.vite/deps/react-dom_client.js",
           // "/src/App.jsx",
           // "/src/index.css",
-          "/src/swDev.js",
+          // "/src/swDev.js",
           // "/node_modules/.vite/deps/chunk-LHNGGKKR.js",
           // "/node_modules/.vite/deps/chunk-P2LSHJDD.js",
           // "/src/api/fetchWeather.js",
