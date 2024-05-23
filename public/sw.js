@@ -4,20 +4,20 @@ this.addEventListener("install", (event) => {
     caches.open(cachedData).then((cache) => {
       cache
         .addAll([
-          // "/src/main.jsx",
-          // "/node_modules/.vite/deps/react.js",
-          // "/node_modules/.vite/deps/react-dom_client.js",
-          // "/src/App.jsx",
-          // "/src/index.css",
-          // "/src/swDev.js",
-          // "/node_modules/.vite/deps/chunk-LHNGGKKR.js",
-          // "/node_modules/.vite/deps/chunk-P2LSHJDD.js",
-          // "/src/api/fetchWeather.js",
-          // "/src/hooks/useIsOnline.js",
-          // "/node_modules/.vite/deps/axios.js",
+          "/src/main.jsx",
+          "/node_modules/.vite/deps/react.js",
+          "/node_modules/.vite/deps/react-dom_client.js",
+          "/src/App.jsx",
+          "/src/index.css",
+          "/src/swDev.js",
+          "/node_modules/.vite/deps/chunk-LHNGGKKR.js",
+          "/node_modules/.vite/deps/chunk-P2LSHJDD.js",
+          "/src/api/fetchWeather.js",
+          "/src/hooks/useIsOnline.js",
+          "/node_modules/.vite/deps/axios.js",
+          "/bg.webp",
           "/logo.png",
           "/index.html",
-          "/manifest.json",
           "/",
         ])
         .catch((error) => {
@@ -67,11 +67,9 @@ this.addEventListener("activate", (event) => {
 
 // Fetch event
 this.addEventListener("fetch", (event) => {
-  if (!navigator.onLine) {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request.clone());
-      })
-    );
-  }
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
