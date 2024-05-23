@@ -15,7 +15,6 @@ this.addEventListener("install", (event) => {
         "/node_modules/.vite/deps/chunk-LHNGGKKR.js",
         "/node_modules/.vite/deps/chunk-P2LSHJDD.js",
         "/src/api/fetchWeather.js",
-        "/src/hooks/useIsOnline.js",
         "/node_modules/.vite/deps/axios.js",
         "/bg.webp",
         "/logo.png",
@@ -68,7 +67,7 @@ this.addEventListener("fetch", (event) => {
   if (!navigator.onLine) {
     event.respondWith(
       caches.match(event.request).then((response) => {
-        return response || fetch(event.request.clone());
+        return response || fetch(event.request);
       })
     );
   }
