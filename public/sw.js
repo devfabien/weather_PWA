@@ -20,7 +20,6 @@ this.addEventListener("install", (event) => {
         "/bg.webp",
         "/logo.png",
         "/index.html",
-        "/",
       ]);
     })
   );
