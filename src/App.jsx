@@ -21,7 +21,7 @@ function App() {
           let collection = localStorage.getItem("weather");
           setWeather(JSON.parse(collection));
         });
-      console.log(weather);
+      // console.log(weather);
       // console.log(data);
       // setWeather(data);
       setQuery("");
