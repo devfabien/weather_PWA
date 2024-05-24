@@ -20,9 +20,9 @@ this.addEventListener("install", (event) => {
           "/index.html",
           "/",
         ])
-        .catch((error) => {
-          console.error("Failed to add data to cache:", error);
-          console.log("failed request:", error.request);
+        .catch(async (error) => {
+          console.error("Failed to add data to cache:", await error);
+          console.log("failed request:", await error.request);
         });
     })
   );
