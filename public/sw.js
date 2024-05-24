@@ -21,7 +21,8 @@ this.addEventListener("install", (event) => {
           "/",
         ])
         .catch((error) => {
-          console.log("Failed to add data to cache:", error);
+          console.error("Failed to add data to cache:", error);
+          console.log("failed request:", error.request);
         });
     })
   );
