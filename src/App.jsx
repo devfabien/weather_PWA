@@ -7,10 +7,12 @@ function App() {
   const [weather, setWeather] = useState({});
   const isOnline = useIsOnline();
   const [notFound, setNotFound] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const search = async (e) => {
     e.preventDefault();
     if (query.trim().length !== 0) {
+      setIsLoading(true);
       try {
         const resp = await fetchWeather(query);
         setWeather(resp);
@@ -27,6 +29,7 @@ function App() {
         }
       }
       setQuery("");
+      setIsLoading(false);
     }
   };
   return (
@@ -42,6 +45,52 @@ function App() {
           {notFound}
         </div>
       ) : null}
+      {isLoading && (
+        <svg
+          version="1.1"
+          id="L5"
+          xmlns="http://www.w3.org/2000/svg"
+          // eslint-disable-next-line react/no-unknown-property
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 100 100"
+          enableBackground="new 0 0 0 0"
+          xmlSpace="preserve"
+          className="w-24 h-24 inline-block m-5"
+        >
+          <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+            <animateTransform
+              attributeName="transform"
+              dur="1s"
+              type="translate"
+              values="0 15 ; 0 -15; 0 15"
+              repeatCount="indefinite"
+              begin="0.1"
+            />
+          </circle>
+          <circle fill="#fff" stroke="none" cx="30" cy="50" r="6">
+            <animateTransform
+              attributeName="transform"
+              dur="1s"
+              type="translate"
+              values="0 10 ; 0 -10; 0 10"
+              repeatCount="indefinite"
+              begin="0.2"
+            />
+          </circle>
+          <circle fill="#fff" stroke="none" cx="54" cy="50" r="6">
+            <animateTransform
+              attributeName="transform"
+              dur="1s"
+              type="translate"
+              values="0 5 ; 0 -5; 0 5"
+              repeatCount="indefinite"
+              begin="0.3"
+            />
+          </circle>
+        </svg>
+      )}
       <form
         id="searchform"
         className="w-[70%] md:w-[40%] p-3 rounded-lg flex items-center bg-white gap-2"
